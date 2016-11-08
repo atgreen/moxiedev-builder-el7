@@ -17,6 +17,7 @@ before_install:
   - cat Dockerfile.in | sed -e s/@OS@/$OS/ > Dockerfile
   - docker build -f Dockerfile -t atgreen/moxielogic-builder-$OS .
   - docker run --rm -t -i -v $HOME:/usr/local atgreen/moxielogic-builder-$OS /root/build.sh
+  - cat BUILDNUM
   - find $HOME/MoxieLogic -type f
   - if test -f $HOME/MoxieLogic/.done; then
       mv $HOME/MoxieLogic .;
@@ -29,7 +30,7 @@ script:
 after_success:
   - if test -f MoxieLogic/.done; then
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push atgreen/moxielogic-repos-$OS;
+      docker push atgreen/moxielogic-repos-$OS:`cat BUILDNUM`;
     else
       ./.trigger;
     fi;

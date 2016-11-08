@@ -5,6 +5,10 @@ set -x
 SRPMDIR=/var/www/html
 REPODIR=/usr/local/MoxieLogic
 
+# Send the build number out of the container.  We'll use this to tag
+# the resulting repo container.
+cp $SRPMDIR/BUILDNUM /usr/local
+
 if ! test -f $REPODIR/x86_64; then mkdir -p $REPODIR/x86_64; fi
 if ! test -f $REPODIR/noarch; then mkdir -p $REPODIR/noarch; fi
 
