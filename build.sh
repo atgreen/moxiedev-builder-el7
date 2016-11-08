@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -x
+
 SRPMDIR=/var/www/html
 REPODIR=/usr/local/MoxieLogic
 
