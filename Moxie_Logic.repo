@@ -1,0 +1,5 @@
+[moxielogic]
+name=Moxie Logic - $basearch
+baseurl=file:///usr/local/MoxieLogic
+enabled=1
+gpgcheck=0

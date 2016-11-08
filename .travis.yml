@@ -1,0 +1,36 @@
+sudo: required
+
+language: c
+env: OS=el7
+services:
+  - docker
+
+cache:
+  directories:
+    - $HOME/MoxieLogic
+  before_cache:
+    - $HOME/MoxieLogic
+
+before_install:
+  - if ! test -d $HOME/MoxieLogic; then mkdir $HOME/MoxieLogic; fi
+  - find $HOME/MoxieLogic -type f
+  - cat Dockerfile.in | sed -e s/@OS@/$OS/ > Dockerfile
+  - docker build -f Dockerfile -t atgreen/moxielogic-builder-$OS .
+  - docker run --rm -t -i -v $HOME:/usr/local atgreen/moxielogic-builder-$OS /root/build.sh
+  - find $HOME/MoxieLogic -type f
+  - if test -f $HOME/MoxieLogic/.done; then
+      mv $HOME/MoxieLogic .;
+      docker build -f Dockerfile.repos -t atgreen/moxielogic-repos-$OS .;
+    fi;
+
+script:
+  -
+
+after_success:
+  - if test -f MoxieLogic/.done; then
+      docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+      docker push atgreen/moxielogic-repos-$OS;
+    else
+      ./.trigger;
+    fi;
+
