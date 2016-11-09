@@ -21,7 +21,7 @@ before_install:
   - find $HOME/MoxieLogic -type f
   - if test -f $HOME/MoxieLogic/.done; then
       mv $HOME/MoxieLogic .;
-      docker build -f Dockerfile.repos -t atgreen/moxielogic-repos-$OS .;
+      docker build -f Dockerfile.repos -t atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` .;
     fi;
 
 script:

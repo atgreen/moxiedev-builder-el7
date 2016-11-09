@@ -2,7 +2,7 @@ FROM docker.io/fedora:24
 
 MAINTAINER green@moxielogic.org
 
-RUN yum -y install httpd
+RUN dnf -y install httpd
 ADD MoxieLogic /var/www/html/MoxieLogic
 ADD index.html /var/www/html/index.html
 
