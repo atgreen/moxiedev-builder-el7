@@ -1,5 +1,7 @@
-[moxielogic]
-name=Moxie Logic - $basearch
-baseurl=file:///usr/local/MoxieLogic
+[MoxieLogic]
+name=MoxieLogic
+baseurl=http://repos.moxielogic.com:7007/MoxieLogic/
 enabled=1
 gpgcheck=0
+
+

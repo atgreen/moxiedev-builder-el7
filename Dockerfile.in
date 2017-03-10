@@ -2,6 +2,9 @@ FROM atgreen/moxielogic-builder-@OS@
 
 MAINTAINER green@moxielogic.org
 
-ADD Moxie_Logic.repo /etc/yum.repos.d/Moxie_Logic.repo
+ADD builder.repo /etc/yum.repos.d/builder.repo
 ADD build.sh /root/build.sh
+ADD moxielogic-repo.spec /root/moxielogic-repo.spec
+ADD Moxie_Logic.repo /root/Moxie_Logic.repo
+ADD RPM-GPG-KEY-MoxieLogic /root/RPM-GPG-KEY-MoxieLogic
 CMD bash
