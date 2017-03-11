@@ -2,6 +2,8 @@
 
 set -x
 
+cat ./build.sh
+
 SRPMDIR=/var/www/html
 REPODIR=/usr/local/MoxieLogic
 
@@ -51,6 +53,16 @@ for TARGET in moxie-elf moxiebox moxie-rtems; do
         rpmbuild --rebuild $SRPMDIR/moxielogic-$TARGET-gcc*src.rpm;
 	mv /root/rpmbuild/RPMS/x86_64/* $REPODIR/x86_64;
 	createrepo $REPODIR ; exit;
+
+	echo ****************************************************************
+	echo ****************************************************************
+	echo ****************************************************************
+	echo
+	echo      ABOUT TO BUILD REPO
+	echo
+	echo ****************************************************************
+	echo ****************************************************************
+	echo ****************************************************************
 
 	rpmbuild --define "_sourcedir `pwd`" --define "_srcrpmdir `pwd`" -ba moxielogic-repo.spec
 	mv /root/rpmbuild/RPMS/noarch/* $REPODIR;
