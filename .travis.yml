@@ -29,6 +29,7 @@ script:
 
 after_success:
   - if test -f MoxieLogic/.done; then
+      pwd; ls -l;
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
       docker push atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM`;
     else
