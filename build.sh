@@ -48,11 +48,11 @@ for TARGET in moxie-elf moxiebox moxie-rtems; do
   
       RPMCHECK=`find $REPODIR/x86_64 -name moxielogic-$TARGET-gcc-*`
       if test -z "$RPMCHECK"; then
+
         yum clean all;
         yum install -y moxielogic-$TARGET-newlib moxielogic-$TARGET-binutils;
         rpmbuild --rebuild $SRPMDIR/moxielogic-$TARGET-gcc*src.rpm;
 	mv /root/rpmbuild/RPMS/x86_64/* $REPODIR/x86_64;
-	createrepo $REPODIR ;
 
 	echo ****************************************************************
 	echo ****************************************************************
@@ -65,8 +65,10 @@ for TARGET in moxie-elf moxiebox moxie-rtems; do
 	echo ****************************************************************
 
 	rpmbuild --define "_sourcedir /root" --define "_srcrpmdir /root" -ba /root/moxielogic-repo.spec
-	mv /root/rpmbuild/RPMS/noarch/* $REPODIR;
-	
+	mv /root/rpmbuild/RPMS/noarch/* $REPODIR/noarch;
+
+	createrepo $REPODIR ;
+
 	exit;
 
       fi
