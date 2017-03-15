@@ -31,7 +31,9 @@ after_success:
   - if test -f MoxieLogic/.done; then
       pwd; ls -l;
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+      docker tag -f atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` atgreen/moxielogic-repos-$OS:latest;
       docker push atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM`;
+      docker push atgreen/moxielogic-repos-$OS:latest;
     else
       ./.trigger;
     fi;
