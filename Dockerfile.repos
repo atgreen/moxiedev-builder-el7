@@ -1,9 +1,8 @@
-FROM docker.io/fedora:24
+FROM centos/httpd-24-centos7:latest
 
 MAINTAINER green@moxielogic.org
 
-RUN dnf -y install httpd
-ADD MoxieLogic /var/www/html/MoxieLogic
-ADD index.html /var/www/html/index.html
+RUN mkdir -p /opt/rh/http24/root/var/www/html
+ADD MoxieLogic /opt/rh/http24/root/var/www/html/MoxieLogic
+ADD index.html /opt/rh/http24/root/var/www/html/index.html
 
-CMD httpd -DFOREGROUND
