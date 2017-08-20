@@ -42,7 +42,7 @@ after_success:
       find `pwd`/MoxieLogic -type f;
       find `pwd`/MoxieLogic -name \*.rpm | xargs -n 1 package_cloud push MoxieLogic/moxiedev/el/7;
       find `pwd`/MoxieLogic -name \*.rpm | xargs fakeroot alien -v -k -d;
-      find `pwd`/MoxieLogic -name \*.deb | xargs -n 1 package_cloud push MoxieLogic/moxiedev/ubuntu/trusty;
+      find `pwd` -name \*.deb | xargs -n 1 package_cloud push MoxieLogic/moxiedev/ubuntu/trusty;
     else
       ./.trigger;
     fi;
