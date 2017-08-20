@@ -21,6 +21,7 @@ before_install:
   - docker build -f Dockerfile -t atgreen/moxielogic-builder-$OS .
   - docker run --rm -t -i -v $HOME:/usr/local atgreen/moxielogic-builder-$OS /root/build.sh
   - cat $HOME/BUILDNUM
+  - touch $HOME/MoxieLogic/.done
   - find $HOME/MoxieLogic -type f
   - if test -f $HOME/MoxieLogic/.done; then
       mv $HOME/MoxieLogic .;
@@ -36,10 +37,12 @@ after_success:
       docker tag  atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` atgreen/moxielogic-repos-$OS:latest;
       docker push atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM`;
       docker push atgreen/moxielogic-repos-$OS:latest;
-      find ./MoxieLogic -type f
-      find ./MoxieLogic -name \*rpm | xargs -n 1 package_cloud push MoxieLogic/moxiedev/el/7;
-      find ./MoxieLogic -name \*rpm | xargs -n 1 alien -k -d;
-      find ./MoxieLogic -name \*deb | xargs -n 1 package_cloud push MoxieLogic/moxiedev/ubuntu/trusty;
+      echo Home is $HOME;
+      echo pwd is `pwd`;
+      find `pwd`/MoxieLogic -type f;
+      find `pwd`/MoxieLogic -name \*.rpm | xargs -n 1 package_cloud push MoxieLogic/moxiedev/el/7;
+      find `pwd`/MoxieLogic -name \*.rpm | xargs -n 1 alien -k -d;
+      find `pwd`/MoxieLogic -name \*.deb | xargs -n 1 package_cloud push MoxieLogic/moxiedev/ubuntu/trusty;
     else
       ./.trigger;
     fi;
