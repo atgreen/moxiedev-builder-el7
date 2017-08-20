@@ -32,14 +32,14 @@ script:
 
 after_success:
   - if test -f MoxieLogic/.done; then
-      pwd; ls -l;
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
       docker tag  atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` atgreen/moxielogic-repos-$OS:latest;
       docker push atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM`;
       docker push atgreen/moxielogic-repos-$OS:latest;
-      find $HOME/MoxieLogic -name \*rpm | xargs -n 1 package_cloud push MoxieLogic/moxiedev/el/7;
-      find $HOME/MoxieLogic -name \*rpm | xargs -n 1 alien -k -d;
-      find $HOME/MoxieLogic -name \*deb | xargs -n 1 package_cloud push MoxieLogic/moxiedev/ubuntu/trusty;
+      find ./MoxieLogic -type f
+      find ./MoxieLogic -name \*rpm | xargs -n 1 package_cloud push MoxieLogic/moxiedev/el/7;
+      find ./MoxieLogic -name \*rpm | xargs -n 1 alien -k -d;
+      find ./MoxieLogic -name \*deb | xargs -n 1 package_cloud push MoxieLogic/moxiedev/ubuntu/trusty;
     else
       ./.trigger;
     fi;
