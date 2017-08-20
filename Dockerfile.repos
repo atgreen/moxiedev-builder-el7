@@ -2,7 +2,6 @@ FROM centos/httpd-24-centos7:latest
 
 MAINTAINER green@moxielogic.org
 
-RUN find / -type d
-ADD MoxieLogic /opt/rh/http24/root/var/www/html/MoxieLogic
-ADD index.html /opt/rh/http24/root/var/www/html/index.html
+ADD MoxieLogic /var/www/html/MoxieLogic
+ADD index.html /var/www/html/index.html
 
