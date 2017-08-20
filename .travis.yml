@@ -13,7 +13,7 @@ cache:
 
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y alien
+  - sudo apt-get install -y alien fakeroot
   - gem install package_cloud
   - if ! test -d $HOME/MoxieLogic; then mkdir $HOME/MoxieLogic; fi
   - find $HOME/MoxieLogic -type f
@@ -41,7 +41,7 @@ after_success:
       echo pwd is `pwd`;
       find `pwd`/MoxieLogic -type f;
       find `pwd`/MoxieLogic -name \*.rpm | xargs -n 1 package_cloud push MoxieLogic/moxiedev/el/7;
-      find `pwd`/MoxieLogic -name \*.rpm | xargs -n 1 alien -k -d;
+      find `pwd`/MoxieLogic -name \*.rpm | xargs fakeroot alien -v -k -d;
       find `pwd`/MoxieLogic -name \*.deb | xargs -n 1 package_cloud push MoxieLogic/moxiedev/ubuntu/trusty;
     else
       ./.trigger;
