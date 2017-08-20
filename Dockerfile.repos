@@ -2,7 +2,7 @@ FROM centos/httpd-24-centos7:latest
 
 MAINTAINER green@moxielogic.org
 
-RUN mkdir -p /opt/rh/http24/root/var/www/html
+RUN ls -l /opt/rh/http24/root/var/www
 ADD MoxieLogic /opt/rh/http24/root/var/www/html/MoxieLogic
 ADD index.html /opt/rh/http24/root/var/www/html/index.html
 
