@@ -14,13 +14,11 @@ cache:
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y alien fakeroot
-  - gem install package_cloud
   - if ! test -d $HOME/MoxieLogic; then mkdir $HOME/MoxieLogic; fi
   - find $HOME/MoxieLogic -type f
   - cat Dockerfile.in | sed -e s/@OS@/$OS/ > Dockerfile
   - docker build -f Dockerfile -t atgreen/moxielogic-builder-$OS .
   - docker run --rm -t -i -v $HOME:/usr/local atgreen/moxielogic-builder-$OS /root/build.sh
-  - cat $HOME/BUILDNUM
   - find $HOME/MoxieLogic -type f
   - if test -f $HOME/MoxieLogic/.done; then
       mv $HOME/MoxieLogic .;
@@ -36,9 +34,7 @@ after_success:
       docker tag  atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` atgreen/moxielogic-repos-$OS:latest;
       docker push atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM`;
       docker push atgreen/moxielogic-repos-$OS:latest;
-      find `pwd`/MoxieLogic -name \*.rpm | xargs -n 1 package_cloud push MoxieLogic/moxiedev/el/7;
       find `pwd`/MoxieLogic -name \*.rpm | xargs fakeroot alien -v -k -d;
-      find `pwd` -name \*.deb | xargs -n 1 package_cloud push MoxieLogic/moxiedev/ubuntu/trusty;
     else
       ./.trigger;
     fi;
