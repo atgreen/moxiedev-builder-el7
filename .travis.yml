@@ -21,9 +21,12 @@ before_install:
   - docker run --rm -t -i -v $HOME:/usr/local atgreen/moxielogic-builder-$OS /root/build.sh
   - find $HOME/MoxieLogic -type f
   - if test -f $HOME/MoxieLogic/.done; then
-      mv $HOME/MoxieLogic .;
+      cp -a $HOME/MoxieLogic .;
       docker build -f Dockerfile.repos -t atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` .;
+      docker build -f Dockerfile.rpm2deb -t atgreen/moxielogic-rpm2deb .;
+      docker run --rm -t -i -v $HOME/MoxieLogic:/opt atgreen/moxielogic-rpm2deb /root/convert.sh
     fi;
+  - find . -name \*.deb
 
 script:
   -
@@ -34,7 +37,6 @@ after_success:
       docker tag  atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` atgreen/moxielogic-repos-$OS:latest;
       docker push atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM`;
       docker push atgreen/moxielogic-repos-$OS:latest;
-      find `pwd`/MoxieLogic -name \*.rpm | xargs fakeroot alien -v -k -d;
     else
       ./.trigger;
     fi;

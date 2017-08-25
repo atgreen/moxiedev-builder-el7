@@ -1,0 +1,8 @@
+FROM ubuntu:trusty
+
+MAINTAINER green@moxielogic.org
+
+RUN apt-get -qq update && apt-get install alien
+
+ADD convert.sh /root/convert.sh
+CMD bash
