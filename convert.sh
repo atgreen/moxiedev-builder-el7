@@ -20,7 +20,7 @@ for target in moxie-elf moxiebox moxie-rtems; do
   rm -rf `find . -type d -name moxielogic-${target}-gcc\*`
 
   alien -g -k -d moxielogic-${target}-gcc-[c]*rpm
-  perl -p -i -e 's/^Depends.*/Depends: moxielogic-${target}-gcc , moxielogic-${target}-gcc-libstdc++/' moxielogic-${target}-gcc*/debian/control
+  perl -p -i -e 's/^Depends.*/Depends: moxielogic-${target}-gcc , moxielogic-${target}-gcc-libstdc++' moxielogic-${target}-gcc*/debian/control
   perl -p -i -e 's/Maintainer.*/Maintainer: green@moxielogic.com/' moxielogic-${target}-gcc*/debian/control
   (cd moxielogic-${target}-gcc*/debian/..;
    ./debian/rules binary)
@@ -33,7 +33,7 @@ for target in moxie-elf moxiebox moxie-rtems; do
    ./debian/rules binary)
   rm -rf `find . -type d -name moxielogic-${target}-gcc\*`
 
-  for tools in binutils gdb; do
+  for tool in binutils gdb; do
     alien -g -k -d moxielogic-${target}-${tool}-[0-9]*rpm
     perl -p -i -e 's/^Depends.*/Depends:/' moxielogic-${target}-${tool}*/debian/control
     perl -p -i -e 's/Maintainer.*/Maintainer: green@moxielogic.com/' moxielogic-${target}-${tool}*/debian/control
