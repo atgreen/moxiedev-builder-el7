@@ -24,7 +24,7 @@ before_install:
       cp -a $HOME/MoxieLogic .;
       docker build -f Dockerfile.repos -t atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` .;
       docker build -f Dockerfile.rpm2deb -t atgreen/moxielogic-rpm2deb .;
-      docker run --rm -t -i -v $HOME/MoxieLogic:/opt atgreen/moxielogic-rpm2deb /root/convert.sh
+      docker run --rm -t -i -v $HOME/MoxieLogic:/opt atgreen/moxielogic-rpm2deb /root/convert.sh;
     fi;
   - find . -name \*.deb
 
