@@ -65,6 +65,8 @@ echo **************************************************************************
 
 mv `find /opt -name \*.deb` /opt/MoxieLogic-deb
 
+mkdir /opt/MoxieLogic-deb/conf
+cp /root/distributions /opt/MoxieLogic-deb/conf
 reprepro -b /opt/MoxieLogic-deb createsymlinks
 for PACKAGE in `find /opt/MoxieLogic-deb -name \*.deb`; do
     reprepro -b /opt/MoxieLogic-deb includedeb moxiedev $PACKAGE
