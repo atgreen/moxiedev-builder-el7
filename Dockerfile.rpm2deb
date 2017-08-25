@@ -2,7 +2,8 @@ FROM ubuntu:trusty
 
 MAINTAINER green@moxielogic.org
 
-RUN apt-get -qq update && apt-get install -y alien
+RUN apt-get -qq update && apt-get install -y alien reprepo
 
 ADD convert.sh /root/convert.sh
+ADD distributions /root/distributions
 CMD bash

@@ -1,7 +1,9 @@
 #!/bin/sh
 
-find /opt -type f
-cd /opt/x86_64 
+set -x
+
+find /opt/MoxieLogic -type f
+cd /opt/MoxieLogic/x86_64 
 
 alien -g -k -d moxielogic-moxie-elf-gcc-fsf-man-pages*rpm
 perl -p -i -e 's/^Depends.*/Depends:/' moxielogic-moxie-elf-gcc*/debian/control
@@ -61,4 +63,10 @@ echo **************************************************************************
 echo **** FINISHED CONVERSION *************************************************
 echo **************************************************************************
 
-find /opt -name \*.deb
+mv `find /opt -name \*.deb` /opt/MoxieLogic-deb
+
+reprepro -b /opt/MoxieLogic-deb createsymlinks
+for PACKAGE in `find /opt/MoxieLogic-deb -name \*.deb`; do
+    reprepro -b /opt/MoxieLogic-deb includedeb moxiedev $PACKAGE
+done
+

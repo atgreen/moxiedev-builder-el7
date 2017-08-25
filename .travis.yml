@@ -22,9 +22,11 @@ before_install:
   - find $HOME/MoxieLogic -type f
   - if test -f $HOME/MoxieLogic/.done; then
       cp -a $HOME/MoxieLogic .;
-      docker build -f Dockerfile.repos -t atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` .;
+      docker build -f Dockerfile.rpm-repos -t atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` .;
       docker build -f Dockerfile.rpm2deb -t atgreen/moxielogic-rpm2deb .;
-      docker run --rm -t -i -v $HOME/MoxieLogic:/opt atgreen/moxielogic-rpm2deb /root/convert.sh;
+      mkdir $HOME/MoxieLogic-deb;
+      docker run --rm -t -i -v $HOME:/opt atgreen/moxielogic-rpm2deb /root/convert.sh;
+      docker build -f Dockerfile.deb-repos -t atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` .;
     fi;
   - find $HOME -name \*.deb
 

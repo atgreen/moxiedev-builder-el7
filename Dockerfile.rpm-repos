@@ -1,0 +1,7 @@
+FROM centos/httpd-24-centos7:latest
+
+MAINTAINER green@moxielogic.org
+
+ADD MoxieLogic /var/www/html/MoxieLogic
+ADD index.html /var/www/html/index.html
+
