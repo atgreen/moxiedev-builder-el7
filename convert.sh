@@ -2,6 +2,9 @@
 
 set -x
 
+gpg --import /root/MOXIELOGIC-GPG-KEY.private
+rm /root/MOXIELOGIC-GPG-KEY.private
+
 find /opt -name \*.deb | xargs rm -f
 find /opt/MoxieLogic -type f
 cd /opt/MoxieLogic/x86_64 
