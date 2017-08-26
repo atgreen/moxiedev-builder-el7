@@ -2,8 +2,11 @@
 
 set -x
 
+# this is for package signing, but...
 gpg --import /root/MOXIELOGIC-GPG-KEY.private
 rm /root/MOXIELOGIC-GPG-KEY.private
+# ..reprepro require this
+gpg --export-secret-keys | gpg2 --import -
 
 find /opt -name \*.deb | xargs rm -f
 find /opt/MoxieLogic -type f
