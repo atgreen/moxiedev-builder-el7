@@ -27,7 +27,7 @@ before_install:
       mkdir $HOME/MoxieLogic-deb;
       docker run --rm -t -i -v $HOME:/opt atgreen/moxielogic-rpm2deb /root/convert.sh;
       cp -a $HOME/MoxieLogic-deb .;
-      docker build -f Dockerfile.deb-repos -t atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` .;
+      docker build -f Dockerfile.deb-repos -t atgreen/moxielogic-repos-deb:`cat $HOME/BUILDNUM` .;
     fi;
   - find $HOME -name \*.deb
 
@@ -40,6 +40,9 @@ after_success:
       docker tag  atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` atgreen/moxielogic-repos-$OS:latest;
       docker push atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM`;
       docker push atgreen/moxielogic-repos-$OS:latest;
+      docker tag  atgreen/moxielogic-repos-deb:`cat $HOME/BUILDNUM` atgreen/moxielogic-repos-deb:latest;
+      docker push atgreen/moxielogic-repos-deb:`cat $HOME/BUILDNUM`;
+      docker push atgreen/moxielogic-repos-deb:latest;
     else
       ./.trigger;
     fi;
