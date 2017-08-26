@@ -2,6 +2,7 @@
 
 set -x
 
+find /opt -name \*.deb | xargs rm -f
 find /opt/MoxieLogic -type f
 cd /opt/MoxieLogic/x86_64 
 
@@ -46,7 +47,7 @@ for target in moxie-elf moxiebox moxie-rtems; do
   
 done
 
-cd /opt/noarch
+cd /opt/MoxieLogic/noarch
 
 for target in moxie-elf moxiebox moxie-rtems; do
 
