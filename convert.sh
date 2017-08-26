@@ -23,14 +23,14 @@ for target in moxie-elf moxiebox moxie-rtems; do
   rm -rf `find . -type d -name moxielogic-${target}-gcc\*`
 
   alien -g -k -d moxielogic-${target}-gcc-[c]*rpm
-  perl -p -i -e 's/^Depends.*/Depends: moxielogic-'${target}'-gcc , moxielogic-'${target}'-gcc-libstdc++' moxielogic-${target}-gcc*/debian/control
+  perl -p -i -e 's/^Depends.*/Depends: moxielogic-'${target}'-gcc , moxielogic-'${target}'-gcc-libstdc\+\+/' moxielogic-${target}-gcc*/debian/control
   perl -p -i -e 's/Maintainer.*/Maintainer: green@moxielogic.com/' moxielogic-${target}-gcc*/debian/control
   (cd moxielogic-${target}-gcc*/debian/..;
    ./debian/rules binary)
   rm -rf `find . -type d -name moxielogic-${target}-gcc\*`
   
   alien -g -k -d moxielogic-${target}-gcc-[l]*rpm
-  perl -p -i -e 's/^Depends.*/Depends: moxielogic-'${target}'-gcc-c++/' moxielogic-'${target}'-gcc*/debian/control
+  perl -p -i -e 's/^Depends.*/Depends: moxielogic-'${target}'-gcc-c\+\+/' moxielogic-'${target}'-gcc*/debian/control
   perl -p -i -e 's/Maintainer.*/Maintainer: green@moxielogic.com/' moxielogic-${target}-gcc*/debian/control
   (cd moxielogic-${target}-gcc*/debian/..;
    ./debian/rules binary)
