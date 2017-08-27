@@ -9,9 +9,6 @@ cache:
   before_cache:
   - "$HOME/MoxieLogic"
 before_install:
-- openssl aes-256-cbc -K $encrypted_022c7cb0a356_key -iv $encrypted_022c7cb0a356_iv
-  -in MOXIELOGIC-GPG-KEY.private.enc -out MOXIELOGIC-GPG-KEY.private -d
-- ls -l
 - sudo apt-get -qq update
 - sudo apt-get install -y alien fakeroot
 - if ! test -d $HOME/MoxieLogic; then mkdir $HOME/MoxieLogic; fi
