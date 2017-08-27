@@ -70,6 +70,7 @@ for TARGET in moxie-elf moxiebox moxie-rtems; do
 
 	createrepo $REPODIR ;
 	cd $REPODIR/noarch ;
+	rm -f *latest*;
 	ln -s moxielogic-repo* moxielogic-repo-latest.noarch.rpm;
 
 	exit;
