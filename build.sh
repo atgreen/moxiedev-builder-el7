@@ -42,7 +42,10 @@ for TARGET in moxie-elf moxiebox moxie-rtems; do
       yum install -y bootstrap-moxie-elf-gcc
       rpmbuild --rebuild $SRPMDIR/moxielogic-$TARGET-newlib*src.rpm;
       mv /root/rpmbuild/RPMS/noarch/* $REPODIR/noarch
-      createrepo $REPODIR ; exit;
+      createrepo $REPODIR ;
+      cd $REPODIR/noarch ;
+      ln -s moxielogic-repo* moxielogic-repo-latest.noarch.rpm;
+      exit;
   
     else
   
