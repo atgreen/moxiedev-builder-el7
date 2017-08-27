@@ -2,9 +2,8 @@ FROM ubuntu:trusty
 
 MAINTAINER green@moxielogic.org
 
-RUN apt-get -qq update && apt-get install -y alien reprepro gnupg2
+RUN apt-get -qq update && apt-get install -y alien reprepro
 
 ADD convert.sh /root/convert.sh
 ADD distributions /root/distributions
-ADD MOXIELOGIC-GPG-KEY.private /root/MOXIELOGIC-GPG-KEY.private
 CMD bash
