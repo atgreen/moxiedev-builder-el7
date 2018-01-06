@@ -9,6 +9,7 @@ cache:
   before_cache:
   - "$HOME/MoxieLogic"
 before_install:
+- sudo apt-get clean
 - sudo apt-get -qq update
 - sudo apt-get install -y alien fakeroot
 - if ! test -d $HOME/MoxieLogic; then mkdir $HOME/MoxieLogic; fi
@@ -27,10 +28,13 @@ before_install:
 script:
 - 
 after_success:
-- if test -f MoxieLogic/.done; then docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME"
-  -p="$DOCKER_PASSWORD"; docker tag  atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM`
-  atgreen/moxielogic-repos-$OS:latest; docker push atgreen/moxielogic-repos-$OS:`cat
-  $HOME/BUILDNUM`; docker push atgreen/moxielogic-repos-$OS:latest; docker tag  atgreen/moxielogic-repos-deb:`cat
-  $HOME/BUILDNUM` atgreen/moxielogic-repos-deb:latest; docker push atgreen/moxielogic-repos-deb:`cat
-  $HOME/BUILDNUM`; docker push atgreen/moxielogic-repos-deb:latest; else ./.trigger;
+- if test -f MoxieLogic/.done; then
+    docker login -u=atgreen -p="$DOCKER_PASSWORD";
+    docker tag  atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` atgreen/moxielogic-repos-$OS:latest;
+    docker push atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM`;
+    docker push atgreen/moxielogic-repos-$OS:latest;
+    docker tag  atgreen/moxielogic-repos-deb:`cat $HOME/BUILDNUM` atgreen/moxielogic-repos-deb:latest;
+    docker push atgreen/moxielogic-repos-deb:`cat $HOME/BUILDNUM`; docker push atgreen/moxielogic-repos-deb:latest;
+  else
+    ./.trigger;
   fi;
