@@ -1,6 +1,6 @@
 Name:		moxielogic-repo
 Version:	1
-Release:	6
+Release:	7
 Summary:	Moxie Logic Repository Configuration
 
 Group:		System Environment/Base
@@ -40,6 +40,9 @@ rm -rf $RPM_BUILD_ROOT
 /etc/pki/rpm-gpg/RPM*
 
 %changelog
+* Mon Oct 08 2019 Anthony Green <green@moxielogic.com> - 1-7
+- Switch to https.
+
 * Mon Jan 12 2015 Anthony Green <green@moxielogic.com> - 1-6
 - Point to new repos.moxielogic.org.
 
