@@ -4,4 +4,4 @@ MAINTAINER green@moxielogic.org
 
 ADD MoxieLogic /var/www/html/MoxieLogic
 ADD index.html /var/www/html/index.html
-
+RUN wget -O /etc/pki/tls/certs/localhost.crt https://acme-v02.api.letsencrypt.org/acme/cert/03ec6d253e1afef1b41e2932db0b65dfb3d5
