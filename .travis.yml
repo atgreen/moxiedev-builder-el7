@@ -26,7 +26,7 @@ before_install:
   $HOME/BUILDNUM` .; fi;
 - find $HOME -name \*.deb
 script:
-- 
+- ls -l
 after_success:
 - if test -f MoxieLogic/.done; then
     docker login -u=atgreen -p="$DOCKER_PASSWORD";
