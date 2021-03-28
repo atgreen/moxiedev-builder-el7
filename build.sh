@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -x
+set -e
 
 cat /root/build.sh
 
@@ -18,14 +19,14 @@ for TARGET in moxie-elf moxiebox moxie-rtems; do
 
   RPMCHECK=`find $REPODIR/x86_64 -name moxielogic-$TARGET-binutils*`
   if test -z "$RPMCHECK"; then
-  
+
     rpmbuild --rebuild $SRPMDIR/moxielogic-$TARGET-binutils*src.rpm;
     rpmbuild --rebuild $SRPMDIR/moxielogic-$TARGET-gdb*src.rpm;
     mv /root/rpmbuild/RPMS/x86_64/* $REPODIR/x86_64
     createrepo $REPODIR ; exit;
-    
+
   else
-  
+
     RPMCHECK=`find $REPODIR/noarch -name moxielogic-$TARGET-newlib*`
     if test -z "$RPMCHECK"; then
 
@@ -44,9 +45,9 @@ for TARGET in moxie-elf moxiebox moxie-rtems; do
       mv /root/rpmbuild/RPMS/noarch/* $REPODIR/noarch
       createrepo $REPODIR ;
       exit;
-  
+
     else
-  
+
       RPMCHECK=`find $REPODIR/x86_64 -name moxielogic-$TARGET-gcc-*`
       if test -z "$RPMCHECK"; then
 
@@ -80,6 +81,6 @@ for TARGET in moxie-elf moxiebox moxie-rtems; do
     fi
   fi
 done
-  
+
 # Indicate that we are all done.
 touch $REPODIR/.done
